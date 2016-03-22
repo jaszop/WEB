@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
        
 
-       <script type='text/javascript' src='data/cities_europe.js'></script>
+       <script type='text/javascript' src='data/Aguascalientes_utf.js'></script>
       <script type='text/javascript' src='js/leaflet.js?2'></script>
        <link rel="stylesheet" type="text/css" href="js/leaflet.css" />
       <link rel="stylesheet" href="css/leaflet-styles.css" charset="utf-8" />
@@ -14,5 +14,60 @@
    <body>
       <div id="map"></div>
       <script type='text/javascript' src='js/leaf-demo.js'></script>
+        function style(feature) {
+        console.log(sn);
+        if (sn == feature.properties.name) {
+            return {
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.3,
+                fillColor: '#ff0000'
+            };
+            
+            "></script>
+<script src="../dist/leaflet.select-layers.min.js"></script>
+<script>
+    function test() {
+        var attribution = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+        var mapnik = L.tileLayer(
+                'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                , {attribution: attribution}
+        )
+        var blackAndWhite = L.tileLayer(
+                'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
+                , {attribution: attribution}
+        )
+        var clouds = L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>'
+            , opacity: 0.5
+        })
+        var wind = L.tileLayer('http://{s}.tile.openweathermap.org/map/wind/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>'
+            , opacity: 0.5
+        })
+        var temperature = L.tileLayer('http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>'
+            , opacity: 0.5
+        })
+        var map = L.map('map', {
+            center: new L.LatLng(39.73, -104.99), zoom: 10, layers: [mapnik, clouds]
+        });
+        var baseMaps = {
+            "Mapnik": mapnik, "Black and White": blackAndWhite
+        };
+        var overlayMaps = {
+            "Clouds": clouds,
+            "Wind": wind,
+            "Temperature": temperature
+        };
+        //var control = L.control.layers(baseMaps, overlayMaps)
+        var control = L.control.selectLayers(baseMaps, overlayMaps)
+        control.addTo(map);
+    }
+    test()
+</script>
+
    </body>
 </html>
